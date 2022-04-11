@@ -113,6 +113,7 @@ sudo systemctl daemon-reload
 echo -e "\e[1m\e[31m3. remove databases \e[0m" && sleep 1
 rm -r $HOME/.local/share/subspace
 rm -r $HOME/.local/share/subspace-node-ubuntu-x86_64-snapshot-2022-mar-09
+rm -r subspace
 }
 
 function displayNodeLogs {
