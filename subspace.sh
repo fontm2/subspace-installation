@@ -27,26 +27,28 @@ sudo systemctl daemon-reload
 
 echo -e "\e[1m\e[32m3. removing old data \e[0m" && sleep 1
 rm -r $HOME/.local/share/subspace
-rm -r $HOME/.local/share/subspace-node-ubuntu-x86_64-snapshot-2022-mar-09
+rm -r $HOME/.local/share/subspace-node-ubuntu-x86_64-snapshot-2022-may-03
+rm /usr/local/bin/subspace-farmer-ubuntu-x86_64-snapshot-2022-may-03
+rm /usr/local/bin/subspace-node-ubuntu-x86_64-snapshot-2022-may-03
 rm -r subspace
 
 mkdir subspace
 cd subspace
 
 echo -e "\e[1m\e[32m4. downloading the farmer \e[0m" && sleep 1
-wget https://github.com/subspace/subspace/releases/download/snapshot-2022-mar-09/subspace-farmer-ubuntu-x86_64-snapshot-2022-mar-09
+wget https://github.com/subspace/subspace/releases/download/snapshot-2022-may-03/subspace-farmer-ubuntu-x86_64-snapshot-2022-may-03
 
 echo -e "\e[1m\e[32m5. downloading the node \e[0m" && sleep 1
-wget https://github.com/subspace/subspace/releases/download/snapshot-2022-mar-09/subspace-node-ubuntu-x86_64-snapshot-2022-mar-09
+wget https://github.com/subspace/subspace/releases/download/snapshot-2022-may-03/subspace-node-ubuntu-x86_64-snapshot-2022-may-03
 
-chmod +x subspace-node-ubuntu-x86_64-snapshot-2022-mar-09
-chmod +x subspace-farmer-ubuntu-x86_64-snapshot-2022-mar-09
+chmod +x subspace-farmer-ubuntu-x86_64-snapshot-2022-may-03
+chmod +x subspace-node-ubuntu-x86_64-snapshot-2022-may-03
 
 echo -e "\e[1m\e[32m6. Moving subspace-node to /usr/local/bin/ ... \e[0m" && sleep 1
-mv $MYHOME/subspace/subspace-node-ubuntu-x86_64-snapshot-2022-mar-09 /usr/local/bin
+mv $MYHOME/subspace/subspace-node-ubuntu-x86_64-snapshot-2022-may-03 /usr/local/bin
 
 echo -e "\e[1m\e[32m7. Moving subspace-farmer to /usr/local/bin/ ... \e[0m" && sleep 1
-mv $MYHOME/subspace/subspace-farmer-ubuntu-x86_64-snapshot-2022-mar-09 /usr/local/bin
+mv $MYHOME/subspace/subspace-farmer-ubuntu-x86_64-snapshot-2022-may-03 /usr/local/bin
 
 echo -e "\e[1m\e[32m8. Starting the node-service \e[0m" && sleep 1
 sudo tee /etc/systemd/system/subspace-node.service > /dev/null <<EOF
@@ -55,16 +57,12 @@ sudo tee /etc/systemd/system/subspace-node.service > /dev/null <<EOF
   After=network-online.target
 [Service]
   User=$USER
-  ExecStart=/usr/local/bin/subspace-node-ubuntu-x86_64-snapshot-2022-mar-09 --chain testnet \
-  --wasm-execution compiled \
-  --execution wasm \
-  --bootnodes "/dns/farm-rpc.subspace.network/tcp/30333/p2p/12D3KooWPjMZuSYj35ehced2MTJFf95upwpHKgKUrFRfHwohzJXr" \
-  --rpc-cors all \
-  --rpc-methods unsafe \
-  --ws-external \
+  ExecStart=/usr/local/bin/subspace-node-ubuntu-x86_64-snapshot-2022-may-03 --chain testnet \
+  --execution native \
+  --unsafe-pruning \
+  --pruning 1024 \
+  --keep-blocks 1024 \
   --validator \
-  --telemetry-url "wss://telemetry.polkadot.io/submit/ 1" \
-  --telemetry-url "wss://telemetry.subspace.network/submit 1" \
   --name $NODENAME
   Restart=on-failure
   RestartSec=10
@@ -85,7 +83,7 @@ sudo tee /etc/systemd/system/subspace-farmer.service > /dev/null <<EOF
   After=network-online.target
 [Service]
   User=$USER
-  ExecStart=/usr/local/bin/subspace-farmer-ubuntu-x86_64-snapshot-2022-mar-09 farm --reward-address $subspaceAddress
+  ExecStart=/usr/local/bin/subspace-farmer-ubuntu-x86_64-snapshot-2022-may-03 farm --reward-address $subspaceAddress --plot-size 100G
   Restart=on-failure
   RestartSec=10
   LimitNOFILE=4096
@@ -112,7 +110,9 @@ rm /etc/systemd/system/subspace-node.service
 sudo systemctl daemon-reload
 echo -e "\e[1m\e[31m3. remove databases \e[0m" && sleep 1
 rm -r $HOME/.local/share/subspace
-rm -r $HOME/.local/share/subspace-node-ubuntu-x86_64-snapshot-2022-mar-09
+rm -r $HOME/.local/share/subspace-node-ubuntu-x86_64-snapshot-2022-may-03
+rm /usr/local/bin/subspace-farmer-ubuntu-x86_64-snapshot-2022-may-03
+rm /usr/local/bin/subspace-node-ubuntu-x86_64-snapshot-2022-may-03
 rm -r subspace
 }
 
