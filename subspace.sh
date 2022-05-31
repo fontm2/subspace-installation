@@ -1,5 +1,6 @@
 #!/bin/bash
 #
+
 # allow execution if not yet set
 # 	chmod +x subspace.sh
 # start the script with the subspace address that starts with st.....
