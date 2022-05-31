@@ -1,6 +1,5 @@
 #!/bin/bash
 #
-
 # allow execution if not yet set
 # 	chmod +x subspace.sh
 # start the script with the subspace address that starts with st.....
@@ -37,11 +36,9 @@ mkdir subspace
 cd subspace
 
 echo -e "\e[1m\e[32m4. downloading the farmer \e[0m" && sleep 1
-wget https://github.com/subspace/subspace/releases/tag/gemini-1a-2022-may-31/download/snapshot-2022-may-03/subspace-farmer-ubuntu-x86_64-gemini-1a-2022-may-31
-
+wget https://github.com/subspace/subspace/releases/download/gemini-1a-2022-may-31/subspace-farmer-ubuntu-x86_64-gemini-1a-2022-may-31
 echo -e "\e[1m\e[32m5. downloading the node \e[0m" && sleep 1
-wget https://github.com/subspace/subspace/releases/tag/gemini-1a-2022-may-31/download/snapshot-2022-may-03/subspace-node-ubuntu-x86_64-gemini-1a-2022-may-31
-
+wget https://github.com/subspace/subspace/releases/download/gemini-1a-2022-may-31/subspace-node-ubuntu-x86_64-gemini-1a-2022-may-31
 chmod +x subspace-farmer-ubuntu-x86_64-gemini-1a-2022-may-31
 chmod +x subspace-node-ubuntu-x86_64-gemini-1a-2022-may-31
 
@@ -113,7 +110,7 @@ echo -e "\e[1m\e[31m3. remove databases \e[0m" && sleep 1
 rm -r $HOME/.local/share/subspace
 rm -r $HOME/.local/share/subspace-node-ubuntu-x86_64-snapshot-2022-may-03
 rm /usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1a-2022-may-31
-rm /usr/local/bin/subspace-node-ubuntu-x86_64-snapshot-2022-may-03
+rm /usr/local/bin/subspace-node-ubuntu-x86_64-gemini-1a-2022-may-31
 rm -r subspace
 }
 
