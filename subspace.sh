@@ -36,10 +36,10 @@ mkdir subspace
 cd subspace
 
 echo -e "\e[1m\e[32m4. downloading the farmer \e[0m" && sleep 1
-wget https://github.com/subspace/subspace/releases/download/snapshot-2022-may-03/subspace-farmer-ubuntu-x86_64-gemini-1a-2022-may-31
+wget https://github.com/subspace/subspace/releases/tag/gemini-1a-2022-may-31/download/snapshot-2022-may-03/subspace-farmer-ubuntu-x86_64-gemini-1a-2022-may-31
 
 echo -e "\e[1m\e[32m5. downloading the node \e[0m" && sleep 1
-wget https://github.com/subspace/subspace/releases/download/snapshot-2022-may-03/subspace-node-ubuntu-x86_64-gemini-1a-2022-may-31
+wget https://github.com/subspace/subspace/releases/tag/gemini-1a-2022-may-31/download/snapshot-2022-may-03/subspace-node-ubuntu-x86_64-gemini-1a-2022-may-31
 
 chmod +x subspace-farmer-ubuntu-x86_64-gemini-1a-2022-may-31
 chmod +x subspace-node-ubuntu-x86_64-gemini-1a-2022-may-31
