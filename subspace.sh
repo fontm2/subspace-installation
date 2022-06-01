@@ -48,7 +48,11 @@ mv $MYHOME/subspace/subspace-node-ubuntu-x86_64-gemini-1a-2022-may-31 /usr/local
 echo -e "\e[1m\e[32m7. Moving subspace-farmer to /usr/local/bin/ ... \e[0m" && sleep 1
 mv $MYHOME/subspace/subspace-farmer-ubuntu-x86_64-gemini-1a-2022-may-31 /usr/local/bin
 
-echo -e "\e[1m\e[32m8. Starting the node-service \e[0m" && sleep 1
+echo -e "\e[1m\e[32m8. Pruning old snapshot \e[0m" && sleep 1
+/usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1a-2022-may-31 wipe
+/usr/local/bin/subspace-node-ubuntu-x86_64-gemini-1a-2022-may-31 purge-chain --chain gemini-1
+
+echo -e "\e[1m\e[32m9. Starting the node-service \e[0m" && sleep 1
 sudo tee /etc/systemd/system/subspace-node.service > /dev/null <<EOF
 [Unit]
   Description=Subspace-node daemon
@@ -72,9 +76,9 @@ EOF
 sudo systemctl enable subspace-node
 sudo systemctl daemon-reload
 sudo systemctl restart subspace-node
-echo -e "\e[1m\e[32m9. Waiting for the node to start up properly \e[0m" && sleep 30
+echo -e "\e[1m\e[32m10. Waiting for the node to start up properly \e[0m" && sleep 30
 
-echo -e "\e[1m\e[32m10. Starting the farmer-service \e[0m" && sleep 1
+echo -e "\e[1m\e[32m11. Starting the farmer-service \e[0m" && sleep 1
 sudo tee /etc/systemd/system/subspace-farmer.service > /dev/null <<EOF
 [Unit]
   Description=Subspace-node daemon
@@ -92,7 +96,7 @@ EOF
 sudo systemctl enable subspace-farmer
 sudo systemctl daemon-reload
 sudo systemctl restart subspace-farmer
-echo -e "\e[1m\e[32m11. You can check the logs by rerunning this bash-script and by choosing the log-options \e[0m" && sleep 1
+echo -e "\e[1m\e[32m12. You can check the logs by rerunning this bash-script and by choosing the log-options \e[0m" && sleep 1
 }
 
 function disable {
@@ -106,7 +110,10 @@ sudo systemctl stop subspace-node
 sudo systemctl disable subspace-node
 rm /etc/systemd/system/subspace-node.service
 sudo systemctl daemon-reload
-echo -e "\e[1m\e[31m3. remove databases \e[0m" && sleep 1
+echo -e "\e[1m\e[31m3. pruning old snapshot \e[0m" && sleep 1
+/usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1a-2022-may-31 wipe
+/usr/local/bin/subspace-node-ubuntu-x86_64-gemini-1a-2022-may-31 purge-chain --chain gemini-1
+echo -e "\e[1m\e[31m4. remove databases \e[0m" && sleep 1
 rm -r $HOME/.local/share/subspace
 rm -r $HOME/.local/share/subspace-node-ubuntu-x86_64-snapshot-2022-may-03
 rm /usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1a-2022-may-31
