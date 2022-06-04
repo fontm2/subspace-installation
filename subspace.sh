@@ -27,30 +27,30 @@ sudo systemctl daemon-reload
 
 echo -e "\e[1m\e[32m3. removing old data \e[0m" && sleep 1
 rm -r $HOME/.local/share/subspace
-rm -r $HOME/.local/share/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-02
-rm /usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-02
-rm /usr/local/bin/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-02
+rm -r $HOME/.local/share/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-03
+rm /usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-03
+rm /usr/local/bin/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-03
 rm -r subspace
 
 mkdir subspace
 cd subspace
 
 echo -e "\e[1m\e[32m4. downloading the farmer \e[0m" && sleep 1
-wget https://github.com/subspace/subspace/releases/download/gemini-1b-2022-june-02/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-02
+wget https://github.com/subspace/subspace/releases/download/gemini-1b-2022-june-03/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-03
 echo -e "\e[1m\e[32m5. downloading the node \e[0m" && sleep 1
-wget https://github.com/subspace/subspace/releases/download/gemini-1b-2022-june-02/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-02
-chmod +x subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-02
-chmod +x subspace-node-ubuntu-x86_64-gemini-1b-2022-june-02
+wget https://github.com/subspace/subspace/releases/download/gemini-1b-2022-june-03/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-03
+chmod +x subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-03
+chmod +x subspace-node-ubuntu-x86_64-gemini-1b-2022-june-03
 
 echo -e "\e[1m\e[32m6. Moving subspace-node to /usr/local/bin/ ... \e[0m" && sleep 1
-mv $MYHOME/subspace/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-02 /usr/local/bin
+mv $MYHOME/subspace/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-03 /usr/local/bin
 
 echo -e "\e[1m\e[32m7. Moving subspace-farmer to /usr/local/bin/ ... \e[0m" && sleep 1
-mv $MYHOME/subspace/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-02 /usr/local/bin
+mv $MYHOME/subspace/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-03 /usr/local/bin
 
 echo -e "\e[1m\e[32m8. Pruning old snapshot \e[0m" && sleep 1
-/usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-02 wipe
-/usr/local/bin/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-02 purge-chain --chain gemini-1
+/usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-03 wipe
+/usr/local/bin/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-03 purge-chain --chain gemini-1
 
 echo -e "\e[1m\e[32m9. Starting the node-service \e[0m" && sleep 1
 sudo tee /etc/systemd/system/subspace-node.service > /dev/null <<EOF
@@ -59,7 +59,7 @@ sudo tee /etc/systemd/system/subspace-node.service > /dev/null <<EOF
   After=network-online.target
 [Service]
   User=$USER
-  ExecStart=/usr/local/bin/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-02 \
+  ExecStart=/usr/local/bin/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-03 \
   --chain gemini-1 \
   --execution wasm \
   --pruning 1024 \
@@ -85,7 +85,7 @@ sudo tee /etc/systemd/system/subspace-farmer.service > /dev/null <<EOF
   After=network-online.target
 [Service]
   User=$USER
-  ExecStart=/usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-02 farm --reward-address $subspaceAddress --plot-size 100G
+  ExecStart=/usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-03 farm --reward-address $subspaceAddress --plot-size 100G
   Restart=on-failure
   RestartSec=10
   LimitNOFILE=4096
@@ -111,13 +111,13 @@ sudo systemctl disable subspace-node
 rm /etc/systemd/system/subspace-node.service
 sudo systemctl daemon-reload
 echo -e "\e[1m\e[31m3. pruning old snapshot \e[0m" && sleep 1
-/usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-02 wipe
-/usr/local/bin/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-02 purge-chain --chain gemini-1
+/usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-03 wipe
+/usr/local/bin/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-03 purge-chain --chain gemini-1
 echo -e "\e[1m\e[31m4. remove databases \e[0m" && sleep 1
 rm -r $HOME/.local/share/subspace
 rm -r $HOME/.local/share/subspace-node-ubuntu-x86_64-snapshot-2022-may-03
-rm /usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-02
-rm /usr/local/bin/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-02
+rm /usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-03
+rm /usr/local/bin/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-03
 rm -r subspace
 }
 
