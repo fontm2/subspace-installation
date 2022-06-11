@@ -111,6 +111,9 @@ sudo systemctl daemon-reload
 rm /usr/local/bin/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-june-05
 rm /usr/local/bin/subspace-node-ubuntu-x86_64-gemini-1b-2022-june-05
 
+mkdir subspace
+cd subspace
+
 echo -e "\e[1m\e[32m4. downloading the farmer \e[0m" && sleep 1
 wget https://github.com/subspace/subspace/releases/download/gemini-1b-2022-jun-10/subspace-farmer-ubuntu-x86_64-gemini-1b-2022-jun-10
 echo -e "\e[1m\e[32m5. downloading the node \e[0m" && sleep 1
