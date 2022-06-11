@@ -224,6 +224,7 @@ do
 			break
             ;;
 	    "Update")
+	        subspaceAddress=$1
 	        echo -e '\n\e[42mUpdating\e[0m\n'
 			upgradenodefarmer
 			break
